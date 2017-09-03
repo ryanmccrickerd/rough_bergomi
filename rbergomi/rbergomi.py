@@ -108,3 +108,20 @@ class rBergomi(object):
         S[:,0] = S0
         S[:,1:] = S0 * np.exp(integral)
         return S
+
+    def S1(self, V, dW1, rho, S0 = 1):
+        """
+        rBergomi parallel price process.
+        """
+        dt = self.dt
+
+        # Construct non-anticipative Riemann increments
+        increments = rho * np.sqrt(V[:,:-1]) * dW1[:,:,0] - 0.5 * rho**2 * V[:,:-1] * dt
+
+        # Cumsum is a little slower than Python loop.
+        integral = np.cumsum(increments, axis = 1)
+
+        S = np.zeros_like(V)
+        S[:,0] = S0
+        S[:,1:] = S0 * np.exp(integral)
+        return S

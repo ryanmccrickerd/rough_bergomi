@@ -39,9 +39,8 @@ class rBergomi(object):
         Y2 = np.zeros((self.N, 1 + self.s)) # Riemann sums
 
         # Construct Y1 through exact integral
-        # Could use np.cumsum here
         for i in np.arange(1, 1 + self.s, 1):
-            Y1[:,i] += dW[:,i-1,1] # Assumes kappa = 1
+            Y1[:,i] = dW[:,i-1,1] # Assumes kappa = 1
 
         # Construct arrays for convolution
         G = np.zeros(1 + self.s) # Gamma
